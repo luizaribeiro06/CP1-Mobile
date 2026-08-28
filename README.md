@@ -1,11 +1,11 @@
-# CP1 Mobile — MyProfile
+# CP1 Mobile — Fiel Profile
 
 Aplicativo desenvolvido em **React Native + TypeScript + Expo** para cadastro, autenticação local, gerenciamento de perfil e personalização de tema.
 
 Todas as informações da aplicação são armazenadas localmente utilizando **AsyncStorage**.
 
 ## Tecnologias
-
+my
 * React Native
 * TypeScript
 * Expo SDK 57
