@@ -1,0 +1,26 @@
+{
+  "expo": {
+    "name": "Fiel Profile",
+    "slug": "fielprofile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon_corinthians.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundImage": "./assets/icon_corinthians.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/icon_corinthians.png"
+    },
+    "plugins": [
+      "expo-font",
+      "expo-splash-screen"
+    ]
+  }
+}
