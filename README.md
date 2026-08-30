@@ -5,13 +5,12 @@ Aplicativo desenvolvido em **React Native + TypeScript + Expo** para cadastro, a
 Todas as informações da aplicação são armazenadas localmente utilizando **AsyncStorage**.
 
 ## Tecnologias
-my
 * React Native
 * TypeScript
 * Expo SDK 57
 * AsyncStorage
 * Expo Splash Screen
-* Poppins
+* Poppins (google fonts)
 
 ## Como executar
 
@@ -253,20 +252,14 @@ Também são tratados possíveis erros durante:
 
 ## Prints da aplicação
 
-Os prints da aplicação devem ser adicionados nesta seção antes da entrega.
-
-Exemplo:
 
 ```md
-![Tela de Login](./prints/login.png)
+<img width="410" height="776" alt="image" src="https://github.com/user-attachments/assets/91496557-552e-4a23-a7a3-f40af79b89fd" />
 
-![Tela de Cadastro](./prints/cadastro.png)
+<img width="427" height="788" alt="image" src="https://github.com/user-attachments/assets/73d484ec-56c1-4b64-bf54-beba9ad35e6f" />
 
-![Tela de Perfil](./prints/perfil.png)
+<img width="265" height="563" alt="image" src="https://github.com/user-attachments/assets/7ec4b425-0110-43d2-b085-41186c5caf0d" />
 
-![Tema Dark](./prints/dark.png)
+<img width="263" height="575" alt="image" src="https://github.com/user-attachments/assets/a0e5d841-5ad2-45db-9609-1e2a73659f2e" />
+
 ```
-
-## Status do projeto
-
-Projeto desenvolvido para o **CheckPoint 1 — Mobile Development & IoT**, contemplando cadastro, autenticação local, persistência de sessão, edição e persistência do perfil, temas Light/Dark, persistência do tema, logout, TypeScript, hooks, imutabilidade e componentização.
