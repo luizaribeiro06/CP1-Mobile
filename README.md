@@ -252,8 +252,6 @@ Também são tratados possíveis erros durante:
 
 ## Prints da aplicação
 
-
-```md
 <img width="410" height="776" alt="image" src="https://github.com/user-attachments/assets/91496557-552e-4a23-a7a3-f40af79b89fd" />
 
 <img width="427" height="788" alt="image" src="https://github.com/user-attachments/assets/73d484ec-56c1-4b64-bf54-beba9ad35e6f" />
@@ -262,4 +260,3 @@ Também são tratados possíveis erros durante:
 
 <img width="263" height="575" alt="image" src="https://github.com/user-attachments/assets/a0e5d841-5ad2-45db-9609-1e2a73659f2e" />
 
-```
