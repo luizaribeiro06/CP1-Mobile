@@ -47,7 +47,7 @@ const darkColors = {
     onDark: '#000000',
 } as const;
 
-export type ThemeColors = typeof lightColors;
+export type ThemeColors = typeof lightColors | typeof darkColors;
 
 // ---- ESPAÇAMENTO ----
 export const spacing = {

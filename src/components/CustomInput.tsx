@@ -26,6 +26,8 @@ export function CustomInput({
   inputTextColor = '#171717',
   inputBorderColor = '#c8cad0',
   placeholderColor = '#858585',
+  accessibilityLabel,
+  accessibilityHint,
   ...inputProps
 }: CustomInputProps) {
   return (
@@ -34,6 +36,9 @@ export function CustomInput({
 
       <TextInput
         {...inputProps}
+        accessibilityRole="none"
+        accessibilityLabel={accessibilityLabel || label}
+        accessibilityHint={accessibilityHint}
         style={[
           styles.input,
           {

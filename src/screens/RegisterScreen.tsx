@@ -2,6 +2,7 @@ import { useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
+  Image,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -9,18 +10,23 @@ import {
   StyleSheet,
   Text,
   View,
-  Image
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import type { StackNavigationProp } from '@react-navigation/stack';
 
 import { CustomInput } from '../components/CustomInput';
-import { getTheme } from '../theme/theme';
-import { saveUser } from '../services/storageService';
+import { useAuth } from '../hooks/useAuth';
+import { useTheme } from '../hooks/useTheme';
+import type { RootStackParamList } from '../types/navigation';
 import type { User } from '../types/user';
 
 type RegisterScreenProps = {
-  onGoToLogin: () => void;
-  onRegistered: (user: User) => void;
-  isDark: boolean;
+  onGoToLogin?: () => void;
+  onRegistered?: (user: User) => void;
+  navigation?: {
+    navigate: (screen: string) => void;
+  };
+  isDark?: boolean;
 };
 
 type RegisterField =
@@ -37,8 +43,13 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export function RegisterScreen({
   onGoToLogin,
   onRegistered,
-  isDark
+  navigation: propNavigation,
 }: RegisterScreenProps) {
+  const { register } = useAuth();
+  const { colors, fonts } = useTheme();
+  const styles = getStyles(colors, fonts);
+  const hookNavigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -47,8 +58,15 @@ export function RegisterScreen({
   const [errors, setErrors] = useState<RegisterErrors>({});
   const [loading, setLoading] = useState(false);
 
-  const { colors, fonts } = getTheme(isDark);
-  const styles = getStyles(colors, fonts);
+  function handleNavigateLogin() {
+    if (onGoToLogin) {
+      onGoToLogin();
+    } else if (propNavigation) {
+      propNavigation.navigate('Login');
+    } else {
+      hookNavigation.navigate('Login');
+    }
+  }
 
   function validateForm(): RegisterErrors {
     const nextErrors: RegisterErrors = {};
@@ -97,23 +115,49 @@ export function RegisterScreen({
       phone: '',
       city: '',
       bio: '',
+      role: 'user', // Todos os cadastros locais recebem perfil de torcedor comum (role: 'user')
     };
 
     try {
       setLoading(true);
-      await saveUser(newUser);
+      await register(newUser);
 
-      Alert.alert(
-        'Cadastro realizado',
-        'Seu usuário foi salvo. Agora faça o login.',
-      );
-
-      onRegistered(newUser);
+      if (Platform.OS === 'web') {
+        if (typeof window !== 'undefined') {
+          window.alert('Cadastro realizado com sucesso! Agora faça o login.');
+        }
+        if (onRegistered) {
+          onRegistered(newUser);
+        } else {
+          handleNavigateLogin();
+        }
+      } else {
+        Alert.alert(
+          'Cadastro realizado',
+          'Seu torcedor foi salvo com sucesso. Agora faça o login.',
+          [
+            {
+              text: 'OK',
+              onPress: () => {
+                if (onRegistered) {
+                  onRegistered(newUser);
+                } else {
+                  handleNavigateLogin();
+                }
+              },
+            },
+          ],
+        );
+      }
     } catch {
-      Alert.alert(
-        'Erro no cadastro',
-        'Não foi possível salvar seu usuário no dispositivo.',
-      );
+      if (Platform.OS === 'web' && typeof window !== 'undefined') {
+        window.alert('Não foi possível salvar seu usuário no dispositivo.');
+      } else {
+        Alert.alert(
+          'Erro no cadastro',
+          'Não foi possível salvar seu usuário no dispositivo.',
+        );
+      }
     } finally {
       setLoading(false);
     }
@@ -132,10 +176,12 @@ export function RegisterScreen({
           <Image
             source={require('../../assets/icon_corinthians.png')}
             style={styles.crest}
+            accessibilityRole="image"
+            accessibilityLabel="Escudo do Corinthians"
           />
           <Text style={styles.title}>Criar conta</Text>
           <Text style={styles.subtitle}>
-            Preencha os dados para cadastrar seu perfil localmente.
+            Cadastre seu perfil de torcedor do Timão para acessar o MatchDay Checklist.
           </Text>
         </View>
 
@@ -146,25 +192,49 @@ export function RegisterScreen({
             value={name}
             onChangeText={setName}
             error={errors.name}
+            labelColor={colors.subtext}
+            inputBackgroundColor={colors.inputBg}
+            inputTextColor={colors.text}
+            inputBorderColor={colors.inputBorder}
+            placeholderColor={colors.placeholder}
+            accessibilityRole="none"
+            accessibilityLabel="Nome completo"
+            accessibilityHint="Digite seu nome completo para o cadastro"
           />
 
           <CustomInput
             label="NOME DE USUÁRIO"
-            placeholder="Ex.: anderson123"
+            placeholder="Ex.: fiel_torcedor"
             autoCapitalize="none"
             value={username}
             onChangeText={setUsername}
             error={errors.username}
+            labelColor={colors.subtext}
+            inputBackgroundColor={colors.inputBg}
+            inputTextColor={colors.text}
+            inputBorderColor={colors.inputBorder}
+            placeholderColor={colors.placeholder}
+            accessibilityRole="none"
+            accessibilityLabel="Nome de usuário"
+            accessibilityHint="Digite o nome de usuário desejado para login"
           />
 
           <CustomInput
             label="E-MAIL"
-            placeholder="anderson@email.com"
+            placeholder="torcedor@email.com"
             autoCapitalize="none"
             keyboardType="email-address"
             value={email}
             onChangeText={setEmail}
             error={errors.email}
+            labelColor={colors.subtext}
+            inputBackgroundColor={colors.inputBg}
+            inputTextColor={colors.text}
+            inputBorderColor={colors.inputBorder}
+            placeholderColor={colors.placeholder}
+            accessibilityRole="none"
+            accessibilityLabel="Endereço de e-mail"
+            accessibilityHint="Digite um e-mail válido para sua conta"
           />
 
           <CustomInput
@@ -174,6 +244,14 @@ export function RegisterScreen({
             value={password}
             onChangeText={setPassword}
             error={errors.password}
+            labelColor={colors.subtext}
+            inputBackgroundColor={colors.inputBg}
+            inputTextColor={colors.text}
+            inputBorderColor={colors.inputBorder}
+            placeholderColor={colors.placeholder}
+            accessibilityRole="none"
+            accessibilityLabel="Senha de cadastro"
+            accessibilityHint="Digite uma senha para proteger sua conta"
           />
 
           <CustomInput
@@ -183,11 +261,22 @@ export function RegisterScreen({
             value={confirmPassword}
             onChangeText={setConfirmPassword}
             error={errors.confirmPassword}
+            labelColor={colors.subtext}
+            inputBackgroundColor={colors.inputBg}
+            inputTextColor={colors.text}
+            inputBorderColor={colors.inputBorder}
+            placeholderColor={colors.placeholder}
+            accessibilityRole="none"
+            accessibilityLabel="Confirmação de senha"
+            accessibilityHint="Repita a mesma senha informada acima"
           />
 
           <Pressable
             disabled={loading}
             onPress={handleRegister}
+            accessibilityRole="button"
+            accessibilityLabel="Cadastrar nova conta"
+            accessibilityHint="Salva os dados de cadastro e cria sua conta de torcedor"
             style={({ pressed }) => [
               styles.primaryButton,
               pressed ? styles.buttonPressed : undefined,
@@ -201,7 +290,13 @@ export function RegisterScreen({
             )}
           </Pressable>
 
-          <Pressable onPress={onGoToLogin} style={styles.linkButton}>
+          <Pressable
+            onPress={handleNavigateLogin}
+            accessibilityRole="button"
+            accessibilityLabel="Voltar para a tela de login"
+            accessibilityHint="Retorna à tela de autenticação"
+            style={styles.linkButton}
+          >
             <Text style={styles.link}>
               Já tem cadastro? <Text style={styles.linkBold}>Entrar</Text>
             </Text>
@@ -213,8 +308,8 @@ export function RegisterScreen({
 }
 
 function getStyles(
-  colors: ReturnType<typeof getTheme>['colors'],
-  fonts: ReturnType<typeof getTheme>['fonts'],
+  colors: ReturnType<typeof useTheme>['colors'],
+  fonts: ReturnType<typeof useTheme>['theme']['fonts'],
 ) {
   return StyleSheet.create({
     screen: {
@@ -232,8 +327,8 @@ function getStyles(
       gap: 6,
     },
     crest: {
-      width: 70,
-      height: 70,
+      width: 64,
+      height: 64,
       resizeMode: 'contain',
     },
     title: {

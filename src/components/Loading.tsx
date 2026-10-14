@@ -7,7 +7,11 @@ type LoadingProps = {
 
 export function Loading({ message, fullScreen = false }: LoadingProps) {
   return (
-    <View style={[styles.container, fullScreen ? styles.fullScreen : undefined]}>
+    <View
+      style={[styles.container, fullScreen ? styles.fullScreen : undefined]}
+      accessibilityRole="progressbar"
+      accessibilityLabel={message || 'Carregando informações'}
+    >
       <ActivityIndicator size="large" />
       {message ? <Text style={styles.message}>{message}</Text> : null}
     </View>

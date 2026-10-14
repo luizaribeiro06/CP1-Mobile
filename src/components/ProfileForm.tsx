@@ -86,6 +86,9 @@ export function ProfileForm({
         inputTextColor={colors.text}
         inputBorderColor={colors.inputBorder}
         placeholderColor={colors.placeholder}
+        accessibilityRole="none"
+        accessibilityLabel="Campo de nome completo"
+        accessibilityHint="Altere seu nome completo"
       />
 
       <CustomInput
@@ -100,6 +103,9 @@ export function ProfileForm({
         inputTextColor={colors.text}
         inputBorderColor={colors.inputBorder}
         placeholderColor={colors.placeholder}
+        accessibilityRole="none"
+        accessibilityLabel="Campo de e-mail"
+        accessibilityHint="Altere seu endereço de e-mail"
       />
 
       <CustomInput
@@ -112,6 +118,9 @@ export function ProfileForm({
         inputTextColor={colors.text}
         inputBorderColor={colors.inputBorder}
         placeholderColor={colors.placeholder}
+        accessibilityRole="none"
+        accessibilityLabel="Campo de telefone"
+        accessibilityHint="Altere seu telefone para contato"
       />
 
       <CustomInput
@@ -123,6 +132,9 @@ export function ProfileForm({
         inputTextColor={colors.text}
         inputBorderColor={colors.inputBorder}
         placeholderColor={colors.placeholder}
+        accessibilityRole="none"
+        accessibilityLabel="Campo de cidade"
+        accessibilityHint="Altere sua cidade de residência"
       />
 
       <CustomInput
@@ -136,12 +148,19 @@ export function ProfileForm({
         inputTextColor={colors.text}
         inputBorderColor={colors.inputBorder}
         placeholderColor={colors.placeholder}
+        accessibilityRole="none"
+        accessibilityLabel="Campo de biografia"
+        accessibilityHint="Escreva uma breve descrição sobre você"
       />
 
       <TouchableOpacity
         disabled={loading}
         style={styles.primaryButton}
         onPress={handleSave}
+        accessibilityRole="button"
+        accessibilityLabel="Salvar alterações do perfil"
+        accessibilityHint="Confirma e salva suas alterações cadastrais"
+        activeOpacity={0.7}
       >
         {loading ? (
           <ActivityIndicator color={colors.buttonText} />
@@ -154,6 +173,10 @@ export function ProfileForm({
         disabled={loading}
         style={styles.secondaryButton}
         onPress={onCancel}
+        accessibilityRole="button"
+        accessibilityLabel="Cancelar edição do perfil"
+        accessibilityHint="Descarta as alterações e volta à visualização"
+        activeOpacity={0.7}
       >
         <Text style={styles.secondaryButtonText}>CANCELAR</Text>
       </TouchableOpacity>
