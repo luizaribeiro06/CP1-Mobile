@@ -12,10 +12,13 @@ export function ProfileCard({ user, isDark, onEdit }: ProfileCardProps) {
   const { colors, fonts } = getTheme(isDark);
   const styles = getStyles(colors, fonts);
 
+  const roleDisplay = user.role === 'admin' ? 'Administrador (Admin)' : 'Torcedor (Usuário)';
+
   return (
     <View style={styles.card}>
       <ProfileRow label="Nome" value={user.name} styles={styles} />
       <ProfileRow label="Usuário" value={user.username} styles={styles} />
+      <ProfileRow label="Perfil de Acesso" value={roleDisplay} styles={styles} />
       <ProfileRow label="E-mail" value={user.email} styles={styles} />
       <ProfileRow label="Telefone" value={user.phone || '-'} styles={styles} />
       <ProfileRow label="Cidade" value={user.city || '-'} styles={styles} />
@@ -27,7 +30,14 @@ export function ProfileCard({ user, isDark, onEdit }: ProfileCardProps) {
         last
       />
 
-      <TouchableOpacity style={styles.primaryButton} onPress={onEdit}>
+      <TouchableOpacity
+        style={styles.primaryButton}
+        onPress={onEdit}
+        accessibilityRole="button"
+        accessibilityLabel="Editar informações do perfil"
+        accessibilityHint="Abre o formulário para editar seus dados cadastrais"
+        activeOpacity={0.7}
+      >
         <Text style={styles.primaryButtonText}>EDITAR PERFIL</Text>
       </TouchableOpacity>
     </View>

@@ -11,7 +11,15 @@ export function ThemeSwitch({ theme, onToggle, textColor }: ThemeSwitchProps) {
   const isDark = theme === 'dark';
 
   return (
-    <TouchableOpacity onPress={onToggle} style={styles.row}>
+    <TouchableOpacity
+      onPress={onToggle}
+      style={styles.row}
+      accessibilityRole="switch"
+      accessibilityState={{ checked: isDark }}
+      accessibilityLabel={`Alternar tema. Tema atual: ${isDark ? 'Escuro' : 'Claro'}`}
+      accessibilityHint="Alterna entre o modo claro e o modo escuro do aplicativo"
+      activeOpacity={0.7}
+    >
       <Text style={[styles.text, { color: textColor }]}>
         {isDark
           ? '🌙 Dark ativo — trocar para Light ☀️'

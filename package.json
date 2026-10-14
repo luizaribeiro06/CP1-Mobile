@@ -1,10 +1,13 @@
 {
-  "name": "fielprofile",
-  "version": "1.0.0",
+  "name": "fielflow",
+  "version": "2.0.0",
   "main": "index.ts",
   "dependencies": {
     "@expo-google-fonts/poppins": "^0.4.1",
     "@react-native-async-storage/async-storage": "2.2.0",
+    "@react-navigation/bottom-tabs": "^7.20.0",
+    "@react-navigation/native": "^7.5.0",
+    "@react-navigation/stack": "^7.12.0",
     "expo": "~57.0.17",
     "expo-font": "~57.0.1",
     "expo-splash-screen": "~57.0.8",
@@ -12,6 +15,8 @@
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "react-native": "0.86.3",
+    "react-native-safe-area-context": "^5.10.1",
+    "react-native-screens": "^4.29.0",
     "react-native-web": "^0.21.2"
   },
   "devDependencies": {
@@ -19,10 +24,11 @@
     "typescript": "~6.0.3"
   },
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web"
+    "start": "node ./node_modules/expo/bin/cli start",
+    "android": "node ./node_modules/expo/bin/cli start --android",
+    "ios": "node ./node_modules/expo/bin/cli start --ios",
+    "web": "node ./node_modules/expo/bin/cli start --web",
+    "type-check": "node ./node_modules/typescript/bin/tsc --noEmit"
   },
   "private": true
 }
