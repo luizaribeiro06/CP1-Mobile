@@ -129,10 +129,10 @@ O aplicativo possui dois usuários fixos de teste pré-configurados e suporte a 
 * Exclusão de tarefas compatível com Web e Mobile nativo
 * Persistência no AsyncStorage isolada por usuário
 
-### Partidas Recentes do Corinthians (API Futebol)
+### Proximas Partidas do Corinthians (API Futebol)
 
-* Consumo em tempo real da API Futebol com os 5 últimos jogos finalizados do Corinthians no Brasileirão Série A
-* Exibição de rodada, placar, data, horário, estádio e escudo dos clubes
+* Consumo em tempo real da API Futebol com os proximos jogos do Corinthians no Brasileirão Série A
+* Exibição de rodada, data, horário, estádio e escudo dos clubes
 * Indicador de carregamento com ActivityIndicator
 * Bloco de tratamento de erros com `try/catch`
 * Botão interativo de **"Tentar Novamente"** em caso de indisponibilidade de rede
