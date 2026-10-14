@@ -360,6 +360,7 @@ Também são tratados possíveis erros durante:
 * João Victor Ferreira — RM 560439
 * Jonathan Henrique da Silva — RM 561139
 * Luiza Ribeiro — RM 560200
+* Marcos Vinicius Gonçalves Santos — RM 560062
 
 ## Prints da aplicação
 
